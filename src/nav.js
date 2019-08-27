@@ -5,7 +5,7 @@ class Nav extends Component {
   state = {};
   render() {
     const navStyle = {
-      color: "gray",
+      color: "white",
     };
     const { isAuthenticated, login, logout, userHasScopes } = this.props.auth;
     return (

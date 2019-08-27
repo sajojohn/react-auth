@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import "./App.css";
-import { Route, Redirect } from "react-router-dom";
+import { Route } from "react-router-dom";
 import Home from "./Home";
 import Profile from "./Profile";
 import Nav from "./nav";
@@ -13,20 +12,26 @@ import PrivateRoute from "./private-route";
 class App extends Component {
   constructor(props) {
     super(props);
-    this.auth = new Auth(this.props.history);
+    this.state = { auth: new Auth(this.props.history), tokenRenewalComplete: false };
+  }
+
+  componentDidMount() {
+    this.state.auth.renewToken(() => this.setState({ tokenRenewalComplete: true }));
   }
   state = {};
   render() {
+    const { auth } = this.state;
+    // if (!this.state.tokenRenewalComplete) return "Loading...";
     return (
       <>
-        <Nav auth={this.auth} />
+        <Nav auth={auth} />
         <div className="body">
-          <Route path="/" exact render={(props) => <Home auth={this.auth} {...props} />} />
-          <Route path="/callback" render={(props) => <Callback auth={this.auth} {...props} />} />
+          <Route path="/" exact render={(props) => <Home auth={auth} {...props} />} />
+          <Route path="/callback" render={(props) => <Callback auth={auth} {...props} />} />
           <Route path="/public" component={Public} />
-          <PrivateRoute path="/profile" component={Profile} auth={this.auth} />
-          <PrivateRoute path="/private" component={Private} auth={this.auth} />
-          <PrivateRoute path="/course" component={Courses} scopes={["read:courses"]} auth={this.auth} />
+          <PrivateRoute path="/profile" component={Profile} auth={auth} />
+          <PrivateRoute path="/private" component={Private} auth={auth} />
+          <PrivateRoute path="/course" component={Courses} scopes={["read:courses"]} auth={auth} />
         </div>
       </>
     );

@@ -16,9 +16,9 @@ class Profile extends Component {
     if (!profile) return null;
     return (
       <>
-        <h1>profile</h1>
+        <h1>Profile</h1>
         <p>{profile.nickname}</p>
-        <img style={{ maxWidth: 50, maxHeight: 50 }} src={profile.picture} />
+        <img style={{ maxWidth: 50, maxHeight: 50 }} src={profile.picture} alt="" />
         <pre>{JSON.stringify(profile, null, 2)} </pre>
       </>
     );
