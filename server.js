@@ -2,12 +2,11 @@ const express = require("express");
 
 require("dotenv").config();
 
-var jwt = require("express-jwt");
-var jwks = require("jwks-rsa");
+const jwt = require("express-jwt");
+const jwks = require("jwks-rsa");
 const checkScopes = require("express-jwt-authz");
-var port = process.env.PORT || 8080;
 
-var jwtCheck = jwt({
+const jwtCheck = jwt({
   secret: jwks.expressJwtSecret({
     cache: true,
     rateLimit: true,
@@ -34,13 +33,13 @@ function checkRole(role) {
 
 app.get("/public", function(req, res) {
   res.json({
-    message: "hello from a public api",
+    message: "Hello from a Public API!",
   });
 });
 
 app.get("/private", jwtCheck, function(req, res) {
   res.json({
-    message: "hello from a private api",
+    message: "Hello from a Private API!",
   });
 });
 
@@ -52,7 +51,7 @@ app.get("/course", jwtCheck, checkScopes(["read:courses"]), function(req, res) {
 
 app.get("/admin", jwtCheck, checkRole("admin"), function(req, res) {
   res.json({
-    message: "hello from a admin API",
+    message: "Hello from a Admin API",
   });
 });
 

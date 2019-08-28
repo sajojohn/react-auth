@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
-import Home from "./Home";
-import Profile from "./Profile";
-import Nav from "./nav";
-import Auth from "./components/Auth";
-import Callback from "./components/Callback";
-import Public from "./public";
-import Private from "./private";
-import Courses from "./Courses";
-import PrivateRoute from "./private-route";
+import Home from "./components/home/Home";
+import Profile from "./components/profile/Profile";
+import Nav from "./components/nav/nav";
+import Auth from "./components/auth/Auth";
+import Callback from "./components/auth/Callback";
+import Public from "./components/public/public";
+import Private from "./components/private/private";
+import Courses from "./components/course/Courses";
+import PrivateRoute from "./components/routing/private-route";
 class App extends Component {
   constructor(props) {
     super(props);
